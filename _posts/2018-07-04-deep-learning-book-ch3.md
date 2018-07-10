@@ -7,7 +7,7 @@ category: deeplearningbook
 확률이론은 불확실한 진술을 만들고 불확실성에 직면하여 추론할 수 있게 해 주는 반면, 정보이론은 어떤 확률분포 안에서 불확실성의 양을 측정할 수 있게 한다.
 
 ### 3.1 Why Probability?
-세 가지 불확실성의 원천이 있다.
+세 가지 불확실성의 원천이 있다.  
 1. 모델링된 시스템 내부에 본연의 확률적 성질. 예를 들어 원자보다 작은 입자들의 역학은 확률적이다.
 1. 불완전한 관측.
 1. 불완전한 모델링. 예를 들어 어떤 로봇이 사물의 위치를 관측할 때 공간을 이산화한다면 로봇에게 사물의 위치는 불확실한 정보가 된다.
@@ -37,14 +37,44 @@ category: deeplearningbook
 * $$\sum_{x \in \mathrm x} P(x) = 1$$. 이 속성을 정규화라고 부른다.
 
 예를 들어, k 개의 다른 상태를 가지는 단일이산확률변수 $$\mathrm x$$를 고려해 보자. 우리는 모든 상태의 가능성이 동일하도록 모든 $$i$$에 대해 확률질량함수를 다음과 같이 설정해서 x에 **균등확률분포(uniform distribution)**를 지정할 수 있다.  
-$$
-\qquad P(\mathrm x = x_i) = \frac{1}{k}
-$$
+$$ P(\mathrm x = x_i) = \frac{1}{k} \tag{3.1} $$
 
 확률질량함수의 첫 번째 속성을 만족하는지 알아보자. $$k$$가 양수이므로 값 $$1 \over k$$는 양수이다.
-$$ \qquad \sum_i P(\mathrm x = x_i) = \sum_i {1 \over k} = {k \over k} = 1$$  
+$$ \sum_i P(\mathrm x = x_i) = \sum_i {1 \over k} = {k \over k} = 1 \tag{3.2}$$  
 이므로, 이 분포는 잘 정규화되어 있다.
 
 #### 3.3.2 Continuous Variables and Probability Density Functions
+연속확률변수를 다룰 때에는 확률질량함수 대신 확률밀도함수를 사용해 확률분포를 설명한다. 확률밀도함수가 되지 위해서는, 함수 $$p$$는 다음과 같은 속성을 만족해야 한다.
+- $$p$$의 정의역은 x의 가능한 상태의 집합이어야 한다.
+- $$\forall x \in \mathrm x, p(x) \geq 0$$. $$p(x) \leq 1$$을 요구하지 않는 점에 주목하라.
+- $$\int p(x)dx = 1$$.
 
+확률밀도함수 $$p(x)$$는 특정한 상태의 확률을 직접적으로 주지 않는다. 대신 체적 $$\delta x$$인 극소 영역내부에 안착될 확률이 $$p(x)\delta x$$로 주어진다.
+
+### 3.4 Marginal Probability
+우리는 확률변수 집합에 대한 확류분포를 알고 있고, 그 중 일부에 대한 확률분포를 알고 싶을 때가 있다. 부분집합에 대한 확률분포를 **주변확률**분포(**marginal probability** distribution)라고 한다.
+
+예를 들어 이산확률변수 x와 y가 있고 $$P(\mathrm x, \mathrm y)$$를 알고 있다고 하자. 우리는 합 법칙에 따라 $$P(\mathrm x)를 구할 수 있다.
+
+$$
+\forall x \in \mathrm x, P(\mathrm x = x) = \sum_y P(\mathrm x = x, \mathrm y = y). \tag{3.3}
+$$
+
+
+"주변확률"이라는 이름은 종이에 주변확률을 계산할 때의 절차로부터 유래되었다. x 값들은 행으로, y 값들은 열로 된 그리드에 $$P(\rm x, y)$$ 값이 쓰여 있을 때, 격자의 행을 따라 합을 구하고, $$P(\rm x)$$를 종이의 오른쪽에 적는 것은 자연스럽다.
+
+연속확률변수에 대해서는, 합 대신 적분이 필요하다.
+
+$$
+p(x) = \int p(x, y)dy. \tag{3.4}
+$$
+
+### 3.5 Conditional Probability
+많은 경우에, 우리는 다른 이벤트가 발생한 사실이 주어졌을 때, 어떤 이벤트의 확률에 관심이 있다. 이를 **조건부 확률(conditional probability)**이라고 부른다. $$\mathrm x = x$$가 주어졌을 때 $$\mathrm y = y$$인 조건부 확률을 $$P(\mathrm y = y | \mathrm x = x)$$으로 표기한다. 이 조건부 확률은 다음 식으로 계산할 수 있다.
+
+$$
+P(\mathrm y = y | \mathrm x = x) = {P(\mathrm y = y, \mathrm x = x) \over P(\mathrm x = x)}. \tag{3.5}
+$$
+
+### 3.6 The Chain Rule of Conditional Probabilities
 

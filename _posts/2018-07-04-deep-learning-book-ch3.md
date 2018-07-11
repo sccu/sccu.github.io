@@ -1,5 +1,5 @@
 ---
-published: true
+published: false
 title: Chapter 3. Probability and Information Theory
 category: deeplearningbook
 ---
@@ -70,11 +70,10 @@ p(x) = \int p(x, y)dy. \tag{3.4}
 $$
 
 ### 3.5 Conditional Probability
-많은 경우에, 우리는 다른 이벤트가 발생한 사실이 주어졌을 때, 어떤 이벤트의 확률에 관심이 있다. 이를 **조건부 확률(conditional probability)**이라고 부른다. $$\mathrm x = x$$가 주어졌을 때 $$\mathrm y = y$$인 조건부 확률을 $$P(\mathrm y = y | \mathrm x = x)$$으로 표기한다. 이 조건부 확률은 다음 식으로 계산할 수 있다.
+많은 경우에, 우리는 다른 이벤트가 발생한 사실이 주어졌을 때, 어떤 이벤트의 확률에 관심이 있다. 이를 **조건부 확률(conditional probability)**이라고 부른다. $\mathrm x = x$가 주어졌을 때 $\mathrm y = y$인 조건부 확률을 $P(\mathrm y = y | \mathrm x = x)$으로 표기한다. 이 조건부 확률은 다음 식으로 계산할 수 있다.
 
 $$
 P(\mathrm y = y | \mathrm x = x) = {P(\mathrm y = y, \mathrm x = x) \over P(\mathrm x = x)}. \tag{3.5}
 $$
 
 ### 3.6 The Chain Rule of Conditional Probabilities
-

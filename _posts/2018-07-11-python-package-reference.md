@@ -19,7 +19,7 @@ ModuleNotFoundError: No module named 'utils'
 패키지 경로를 추가하는 방법은 다음과 같다.
 #### 1. PYTHONPATH에 패키지 경로 추가
 ```bash
-PYTHONPATH=my/project/root python hello.py
+PYTHONPATH=my/package/parent/dir python hello.py
 ```
 
 #### 2. ```sys.path```에 패키지 경로 추가
@@ -29,10 +29,10 @@ hello.py
 """
 
 import sys
-sys.path.append("my/project/root")
+sys.path.append("relative/path/to/my/package/parent/dir")
 ```
-단, 이 방식은 ```sys.path.append``` 부분이 다른 import문보다 앞에 오게 되는데, 이는 각종 IDE들의 inspection에서 warning을 발생시킬 수도 있다.
+단, 2번 방식은 ```sys.path.append``` 부분이 다른 import문보다 앞에 오게 되는데, 이로 인해 각종 IDE들의 code inspection가 warning을 발생시킬 수 있다.
 
 
-이글에 대한 보다 상세한 내용은 파이썬 튜토리얼의 [Packages](https://docs.python.org/3/tutorial/modules.html#packages)에서 확인할 수 있다.
+이 글에 대한 보다 상세한 내용은 파이썬 튜토리얼의 [Packages](https://docs.python.org/3/tutorial/modules.html#packages)에서 확인할 수 있다.
 

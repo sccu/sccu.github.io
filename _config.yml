@@ -58,3 +58,5 @@ defaults:
 #   - vendor/ruby/
 
 show_excerpts: true
+disqus:
+    shortname: sccu-github-io-1

@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Chapter 3. Probability and Information Theory
 category: deeplearningbook
 ---
@@ -77,3 +77,102 @@ P(\mathrm y = y | \mathrm x = x) = {P(\mathrm y = y, \mathrm x = x) \over P(\mat
 $$
 
 ### 3.6 The Chain Rule of Conditional Probabilities
+많은 확률변수들에 대한 결합확률분포도 오직 하나의 확률변수에 대한 조건부 확률분포로 분해할 수 있다.
+
+$$
+P(\mathrm x^{(1)},..., \mathrm x^{(n)}) = P(\mathrm x^{(1)}) \prod_{i=2}^n P(\mathrm x^{(i)} | \mathrm x^{(1)},..., \mathrm x^{(i-1)}) \tag{3.6}
+$$
+
+이러한 관찰은 확률의 chain rule 혹은 product rule로 알려져 있다. 이것은 식 3.5의 조건부 확률의 정의로부터 도출된다.
+
+예를 들어, 그 정의를 두 번 적용하면 우리는 다음 결과를 얻을 수 있다.
+
+$$
+\begin{align*}
+P(a, b, c) &= P(a|b, c) P(b, c) \\
+P(b, c) &= P(b|c) P(c) \\
+P(a, b, c) &= P(a|b, c) P(b|c) P(c).
+\end{align*}
+$$
+
+### 3.7 Independence and Conditional Independence
+만약 확률분포가 하나는 x만 포함하고 다른 하나는 y만 포함하는 인수의 곱으로 나타낼 수 있다면 두 확률변수 x와 y는 **독립(independent)**이다.
+
+$$
+\forall x \in \mathrm x, y \in \mathrm y, p(\mathrm x = x, \mathrm y = y) = p(\mathrm x = x)p(\mathrm y = y) \tag{3.7}
+$$
+
+만약 x와 y에 대한 조건부 확률분포가 모든 z값에 대해 이런 식으로 인수분해된다면, 두 확률변수 x와 y는 확률변수 z가 주어졌을 때 **조건부 독립(conditionally independent)**이다.
+
+$$
+\forall x \in \mathrm x, y \in \mathrm y, z \in \mathrm z, p(\mathrm x = x, \mathrm y = y | \mathrm z = z) = p(\mathrm x = x | \mathrm z = z)p(\mathrm y = y | \mathrm z = z) \tag{3.8}
+$$
+
+독립과 조건부 독립은 압축된 표기법으로 표시하기도 한다. $\rm x \bot y$는 독립을 의미하고, $\rm x \bot y \| z$는 조건부 독립을 의미한다.
+
+### 3.8 Expectation, Variance and Covariance
+확률분포 $P(\rm x)$에 따른 어떤 함수 $f(x)$의 **기대(expectation)** 혹은 **기대값(expected value)**은 $x$가 $P$로부터 나올 때 $f$가 가질 수 있는 값의 평균이다. 이산변수에 대해서는 합으로 계산할 수 있고,
+
+$$
+\mathbb E_{x \sim P} = \sum_x P(x)f(x) \tag{3.9}
+$$
+
+연속변수에 대해서는 적분으로 계산된다.
+
+$$
+\mathbb E_{x \sim P} = \int_x p(x)f(x) \tag{3.10}
+$$
+
+### Notation for Expectation
+확률분포의 식별이 문맥으로부터 분명할 때에는 $\mathbb{E}_{x \sim P}[f(x)]$처럼 기대값을 계산하는 확률변수의 이름만 쓸 수도 있다. 기대값을 계산하는 확률변수가 명확하다면 $\mathbb{E}[f(x)]$처럼 아랫첨자를 완전히 생략할 수도 있다. 기본값으로 $\mathbb{E}[\cdot]$는 각괄호 내 모든 확률변수들에 대한 평균이다. 마찬가지로, 모호성이 없다면 각괄호를 생략할 수도 있다.
+
+기대값은 선형적이다. 예를 들어, $\alpha$와 $\beta$가 $x$에 대해 종속이 아니라면,
+
+$$
+\qquad \mathbb{E}_{x}[\alpha f(x) + \beta g(x)] = \alpha \mathbb{E}_{x}[f(x)] + \beta \mathbb{E}_x[g(x)] \tag{3.11}
+$$
+
+**분산(variance)**은 확률분포로부터 $x$의 값들이 나올 때, 확률변수 x의 함수의 값이 변하는 정도에 대한 척도이다.  
+
+$$
+Var(f(x)) = \mathbb{E} [(f(x) - \mathbb{E}[f(x)])^2] \tag{3.12}
+$$
+
+분산이 작을 때, $f(x)$의 값이 기대값 근처에 뭉쳐진다. 분산의 제곱근은 **표준편차(standard deviation)**로 알려져 있다.
+
+### Covariance
+공분산은 두 값이 서로 선형적으로 관련된 정도와 이 변수들의 규모에 대한 판별기준을 제공한다.
+
+$$
+Cov(f(x), g(x)) = \mathbb{E}[(f(x)-\mathbb{E}[f(x)])(g(x)-\mathbb{E}[g(x)])] \tag{3.13}
+$$
+
+공분산의 절대값이 크다는 것은 값이 크게 변하며 각각의 평균으로부터 동시에 떨어져 있음을 뜻한다. 공분산의 부호가 양이면, 두 변수는 동시에 상대적으로 높은 값을 가지는 경향이 있다. 부호가 음이면, 한 변수는 상대적으로 높은 값을 가질 때 다른 변수는 낮은 값을 가지거나 그 반대인 경향이 있다. **상관관계(correlation)** 같은 다른 척도들은 개별 변수들의 비율에 의한 영향 대신 변수들이 연관된 정도만 측정하기 위해 각 변수의 기여도를 normalize한다.
+
+공분산과 종속성의 개념은 관계가 있지만, 사실은 구분되는 개념이다. 독립인 두 변수들은 공분산이 0이고, 공분산이 0이 아닌 두 변수는 의존적이기 때문에 관련이 있다. 하지만, 독립성은 공분산과 구분되는 속성이다. 공분산이 0인 두 변수에 대해 두 변수 사이에 선형적 종속성이 없어야 한다. 독립성은 비선형 관계까지도 배제하기 때문에, 공분산이 0인 것보다 더 강력한 요구조건이다. 예를 들어 구간 [-1, 1]에 대한 균등분포로부터 실수 $x$를 뽑는다고 가정하자. 그 다음으로 확률변수 $s$를 뽑는다. $1 \over 2$ 확률로 $s$를 1로 선택한다. 그렇지 않은 경우 $s$는 -1이 된다. 그러면 $y = sx$로 확률변수 $y$를 생성한다. $x$는 $y$의 크기를 완전히 결정하기 때문에, $x$와 $y$는 분명히 독립이 아니다. 하지만 $Cov(x, v)= 0$이다.
+
+확률변수 벡터 $\boldsymbol x \in \mathbb R^n$의 **공분산 행렬(covariance matrix)**은 다음과 같은 $n \times n$ 행렬이다. 
+
+$$
+\mathrm{Cov}(\mathbf x)_{i,j} = \mathrm{Cov}(\mathbf x_i, \mathbf y_j) \tag{3.14}
+$$
+
+공분산의 대각 원소는 분산이다.
+
+$$
+\mathrm{Cov}(\mathbf x_i, \mathbf x_i) = \mathrm{Var}(\mathbf x_i) \tag{3.15}
+$$
+
+### 3.9 Common Probability Distributions
+몇 가지 간단한 확률분포들은 머신러닝에서의 많은 맥략에서 유용하다.
+
+#### 3.9.1 Bernoulli Distribution
+**베르누이** 분포는 단일 이진 확률변수에 대한 분포다. 이 분포는 단일 파라미터 $\phi \in [0, 1]$에 의해 제어되는데, 이것은 확률변수가 1이 될 확률을 제공한다. 베르누이 분포는 다음과 같은 속성을 가진다.
+
+$$P(\mathrm x = 1) = \phi \tag{3.16}$$  
+$$P(\mathrm x = 0) = 1 - \phi \tag{3.17}$$  
+$$P(\mathrm x = x) = \phi^x (1- \phi)^{1-x} \tag{3.18}$$  
+$$\mathbb E_{\mathbf x}[\mathbf x] = \phi\tag{3.19}$$
+$$\rm Var_{x}(x) = \phi(1-\phi) \tag{3.20}$$  
+
+#### 3.9.2 Multinoulli Distribution
